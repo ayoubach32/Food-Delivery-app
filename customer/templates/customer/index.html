@@ -1,0 +1,63 @@
+{% extends 'customer/base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .container {
+      background-color: rgba(3, 18, 72, 0.831);
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(8, 120, 205, 0.1);
+      padding: 20px;
+    }
+  
+    h1, h2 {
+      font-family: Rockwell , sans-serif;
+      font-weight: bold;
+      color: #1f85b8;
+      margin-bottom: 20px;
+    }
+  
+    .btn-outline-primary {
+      color: #121315;
+      border-color: #0e0f12;
+      font-weight: bold;
+      padding: 10px 20px;
+      transition: all 0.3s ease-in-out;
+    }
+  
+    .btn-outline-primary:hover {
+      background-color: #101014;
+      color: #fff;
+    }
+  
+    @media (max-width: 767px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+  
+      h2 {
+        font-size: 1.2rem;
+      }
+    }
+
+
+
+    
+  </style>
+  
+  
+  <div class="container mb-5">
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-8 col-sm-12 offset-md p-4 text-center">
+        <h1>Online Food Delivery Service</h1>
+      </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-8 col-sm-12 offset-md p-4 text-center">
+        <h2>Place an Order!</h2>
+        <a href="{% url 'order' %}" class="btn btn-outline-primary">Order Now!</a>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}  

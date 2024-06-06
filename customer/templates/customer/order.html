@@ -1,0 +1,323 @@
+{% extends 'customer/base.html' %}
+
+{% block content %}
+<style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+    }
+  
+    .container {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+  
+    .row {
+      margin-bottom: 30px;
+    }
+  
+    .form-check-label {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+  
+    .font-weight-bold {
+      color: #007bff;
+      font-weight: bold;
+    }
+  
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+  
+    p {
+      color: #6c757d;
+      font-size: 16px;
+    }
+  
+    hr {
+      border-top: 1px solid #dee2e6;
+    }
+  
+    .btn-dark {
+      background-color: #007bff;
+      border-color: #007bff;
+      font-weight: bold;
+      transition: all 0.3s ease-in-out;
+    }
+  
+    .btn-dark:hover {
+      background-color: #0056b3;
+      border-color: #0056b3;
+    }
+  </style>
+  <style>
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .form-control {
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+
+  .form-control:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+
+  .form-control::placeholder {
+    color: #6c757d;
+    opacity: 1;
+  }
+
+  .form-control:disabled,
+  .form-control[readonly] {
+    background-color: #e9ecef;
+    opacity: 1;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .form-control {
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+
+  .form-control:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+
+  .form-control::placeholder {
+    color: #6c757d;
+    opacity: 1;
+  }
+
+  .form-control:disabled,
+  .form-control[readonly] {
+    background-color: #e9ecef;
+    opacity: 1;
+  }
+
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400&display=swap');
+
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: #0056b3; /* Custom color to match restaurant theme */
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.section-title::before, .section-title::after {
+    content: '';
+    width: 50px;
+    height: 2px;
+    background: #0056b3;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.section-title::before {
+    left: calc(50% - 75px);
+}
+
+.section-title::after {
+    right: calc(50% - 75px);
+}
+
+
+</style>
+  
+<div class="container mb-5">
+  <div class="row justify-content-center mt-1">
+      <div class="col-md-12 col-sm-12 p-4">
+          <form method="POST">
+              {% csrf_token %}
+              
+              <!-- Fast Food Section -->
+              <h2 class="section-title">Fast Food</h2>
+              <div class="pt-3">
+                  {% for FastFood in FastFoods %}
+                  <div class="row">
+                      <div class="col-md-2 col-sm-12">
+                          <img class="rounded" src="{{ FastFood.image.url }}" width="150" height="100"/>
+                      </div>
+                      <div class="col-md-8 col-sm-12">
+                          <div class="d-flex flex-row">
+                              <div class="form-group form-check">
+                                  <input type="checkbox" name="items[]" class="form-check-input" value="{{ FastFood.pk }}">
+                                  <label class="form-check-label">{{ FastFood.name }}</label>
+                              </div>
+                              <p class="font-weight-bold pl-5">{{ FastFood.price }}</p>
+                          </div>
+                          <p>{{ FastFood.description }}</p>
+                      </div>
+                  </div>
+                  <hr />
+                  {% endfor %}
+              </div>
+
+              <!-- Traditional Food Section -->
+              <h2 class="section-title">Traditional Food</h2>
+              <div class="pt-3">
+                  {% for TraditionalFood in TraditionalFoods %}
+                  <div class="row mt-4">
+                      <div class="col-md-2 col-sm-12">
+                          <img class="rounded" src="{{ TraditionalFood.image.url }}" width="150" height="100"/>
+                      </div>
+                      <div class="col-md-8 col-sm-12">
+                          <div class="d-flex flex-row">
+                              <div class="form-group form-check">
+                                  <input type="checkbox" name="items[]" class="form-check-input" value="{{ TraditionalFood.pk }}">
+                                  <label class="form-check-label">{{ TraditionalFood.name }}</label>
+                              </div>
+                              <p class="font-weight-bold pl-5">{{ TraditionalFood.price }}</p>
+                          </div>
+                          <p>{{ TraditionalFood.description }}</p>
+                      </div>
+                  </div>
+                  <hr />
+                  {% endfor %}
+              </div>
+
+              <!-- Desserts Section -->
+              <h2 class="section-title">Desserts</h2>
+              <div class="pt-3">
+                  {% for dessert in desserts %}
+                  <div class="row mt-4">
+                      <div class="col-md-2 col-sm-12">
+                          <img class="rounded" src="{{ dessert.image.url }}" width="150" height="100"/>
+                      </div>
+                      <div class="col-md-8 col-sm-12">
+                          <div class="d-flex flex-row">
+                              <div class="form-group form-check">
+                                  <input type="checkbox" name="items[]" class="form-check-input" value="{{ dessert.pk }}">
+                                  <label class="form-check-label">{{ dessert.name }}</label>
+                              </div>
+                              <p class="font-weight-bold pl-5">{{ dessert.price }}</p>
+                          </div>
+                          <p>{{ dessert.description }}</p>
+                      </div>
+                  </div>
+                  <hr />
+                  {% endfor %}
+              </div>
+
+              <!-- Drinks Section -->
+              <h2 class="section-title">Drinks</h2>
+              <div class="pt-3">
+                  {% for drink in drinks %}
+                  <div class="row mt-4">
+                      <div class="col-md-2 col-sm-12">
+                          <img class="rounded" src="{{ drink.image.url }}" width="150" height="100"/>
+                      </div>
+                      <div class="col-md-8 col-sm-12">
+                          <div class="d-flex flex-row">
+                              <div class="form-group form-check">
+                                  <input type="checkbox" name="items[]" class="form-check-input" value="{{ drink.pk }}">
+                                  <label class="form-check-label">{{ drink.name }}</label>
+                              </div>
+                              <p class="font-weight-bold pl-5">{{ drink.price }}</p>
+                          </div>
+                          <p>{{ drink.description }}</p>
+                      </div>
+                  </div>
+                  <hr />
+                  {% endfor %}
+              </div>
+
+              <!-- Customer Details Section -->
+              <div class="form-group pt-3">
+                  <label for="name">Full Name</label>
+                  <input required class="form-control" type="text" placeholder="Your Name" name="name" />
+              </div>
+
+              <div class="form-group pt-3">
+                  <label for="email">Email Address</label>
+                  <input required class="form-control" type="text" placeholder="example@company.com" name="email" />
+              </div>
+
+              <div class="form-group pt-3">
+                  <label for="street">Street Address</label>
+                  <input required class="form-control" type="text" placeholder="1234 Main St" name="street" />
+              </div>
+
+              <div class="row">
+                  <div class="col-md-4 col-sm-12">
+                      <div class="form-group pt-3">
+                          <label for="city">City</label>
+                          <input required class="form-control" type="text" placeholder="San Francisco" name="city" />
+                      </div>
+                  </div>
+
+                  <div class="col-md-4 col-sm-12">
+                      <div class="form-group pt-3">
+                          <label for="state">State</label>
+                          <input required class="form-control" type="text" placeholder="CA" name="state" />
+                      </div>
+                  </div>
+
+                  <div class="col-md-4 col-sm-12">
+                      <div class="form-group pt-3">
+                          <label for="zip">Zip Code</label>
+                          <input required class="form-control" type="text" placeholder="94117" name="zip" />
+                      </div>
+                  </div>
+              </div>
+
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#submitModal">
+                Submit Order!
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="submitModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="submitModalLabel">Submit Your Order!</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-light" data-dismiss="modal">Go Back</button>
+                      <button type="submit" class="btn btn-dark">Place Order!</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+          </form>
+      </div>
+  </div>
+</div>
+
+{% endblock content %}
